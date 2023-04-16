@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ToDoList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ToDoList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\abstractspoon.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\fileedit_browse.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\app_extra_std.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\app_std.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\app_toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\app_toolbar_std.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\clock.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\column_header.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\custattrib_toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\custattrib_toolbar_std.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\custom_attrib_icons.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\depend_link.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\English.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\fileedit_go.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\find_toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\find_toolbar_std.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\find_dialog_std.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\help_button.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Unicode_Release\Itenso.Rtf.Converter.Html.dll">
+      <Filter>Debug</Filter>
+    </None>
+    <None Include="Unicode_Release\Itenso.Rtf.Interpreter.dll">
+      <Filter>Debug</Filter>
+    </None>
+    <None Include="Unicode_Debug\Itenso.Rtf.Parser.dll">
+      <Filter>Debug</Filter>
+    </None>
+    <None Include="Unicode_Debug\Itenso.Solutions.Community.Rtf2Html.dll">
+      <Filter>Debug</Filter>
+    </None>
+    <None Include="Unicode_Release\Itenso.Sys.dll">
+      <Filter>Debug</Filter>
+    </None>
+    <None Include="Unicode_Debug\Itenso.Rtf.Converter.Html.dll">
+      <Filter>Release</Filter>
+    </None>
+    <None Include="Unicode_Debug\Itenso.Rtf.Interpreter.dll">
+      <Filter>Release</Filter>
+    </None>
+    <None Include="Unicode_Release\Itenso.Rtf.Parser.dll">
+      <Filter>Release</Filter>
+    </None>
+    <None Include="Unicode_Release\Itenso.Solutions.Community.Rtf2Html.dll">
+      <Filter>Release</Filter>
+    </None>
+    <None Include="Unicode_Debug\Itenso.Sys.dll">
+      <Filter>Release</Filter>
+    </None>
+    <None Include="res\list_view_std.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\null.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\prefs_dlg_std.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\shield.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\social_toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\social_toolbar_std.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\src_control_std.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\style_para.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\style_table.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\style_wrap.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\task_icons_std.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\task_tree_std.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Unicode_Debug\Rtf2HtmlBridge.dll">
+      <Filter>Release</Filter>
+    </None>
+    <None Include="Unicode_Release\Rtf2HtmlBridge.dll">
+      <Filter>Debug</Filter>
+    </None>
+    <None Include="res\timetrack_btns.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\update_filter.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\wiz_header.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="RES\XPcheckboxes.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\YourLanguage.GIF">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ToDoList.rc2">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="res\simpletext.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\timetrac.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\timetrack_toolbar_std.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\outlook_16.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\app_timetrack.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\style_image.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\udtprefs_toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\udtprefs_toolbar_std.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\plus.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\outlooktypes.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\search_prefs.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\app_tray_light.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\app_tray_timetrack_light.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\app_tray_timetrack_dark.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\app_tray_dark.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\TDLUpdate\RES\TDLUpdate.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\TDLUpdate\res\TDLUpdate_wiz_header.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\datetime_toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\datetime_toolbar_std.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{d46db6cd-b0f6-4476-9942-76fbf3c60b8b}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{51300bfa-f563-4095-ac1c-460160b0f858}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{a65eff4e-0845-4ec5-80ce-7109a3a56e5f}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{2b469877-c242-4c54-86fc-f2a28fa0296b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Release">
+      <UniqueIdentifier>{bf20db5e-eefa-4fa8-a842-f7912492d85a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ToDoList.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="RES\todolist.exe.manifest">
+      <Filter>Resource Files</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\reset.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

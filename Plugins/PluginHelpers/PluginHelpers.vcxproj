@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{85DB2CAF-CC78-4CA9-B948-EC2AC25F13E8}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>PluginHelpers</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PLUGINHELPERS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <ForcedUsingFiles>System.Windows.Forms.dll</ForcedUsingFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Shared.lib;3rdParty.lib;Interfaces.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\Unicode_Debug;$(SolutionDir)Shared\Unicode_Debug;$(SolutionDir)Interfaces\Unicode_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/IGNORE:4248 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)$(ConfigurationName)"
+copy $(SolutionDir)3rdParty\HtmlAgilityPack\HtmlAgilityPack.dll "$(SolutionDir)$(ConfigurationName)\"
+copy $(SolutionDir)3rdParty\Microsoft\Microsoft.VisualStudio.OLE.Interop.dll "$(SolutionDir)$(ConfigurationName)\"
+
+mkdir "$(SolutionDir)..\Core\ToDoList"
+mkdir "$(SolutionDir)..\Core\ToDoList\unicode_$(ConfigurationName)"
+copy $(TargetPath) "$(SolutionDir)..\Core\ToDoList\unicode_$(ConfigurationName)\"
+copy $(TargetDir)$(TargetName).pdb "$(SolutionDir)..\Core\ToDoList\unicode_$(ConfigurationName)\"
+
+copy $(SolutionDir)$(ConfigurationName)\HtmlAgilityPack.dll "$(SolutionDir)..\Core\ToDoList\unicode_$(ConfigurationName)\"
+copy $(SolutionDir)$(ConfigurationName)\Microsoft.VisualStudio.OLE.Interop.dll "$(SolutionDir)..\Core\ToDoList\unicode_$(ConfigurationName)\"
+
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PLUGINHELPERS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Core\3rdParty\Unicode_Release;$(SolutionDir)..\Core\Shared\Unicode_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <ForcedUsingFiles>System.Windows.Forms.dll</ForcedUsingFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;comctl32.lib;3rdParty.lib;Shared.lib;Interfaces.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Interfaces\Unicode_Release;$(SolutionDir)3rdParty\Unicode_Release;$(SolutionDir)Shared\Unicode_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)$(ConfigurationName)"
+copy $(SolutionDir)3rdParty\HtmlAgilityPack\HtmlAgilityPack.dll "$(SolutionDir)$(ConfigurationName)\"
+copy $(SolutionDir)3rdParty\Microsoft\Microsoft.VisualStudio.OLE.Interop.dll "$(SolutionDir)$(ConfigurationName)\"
+
+mkdir "$(SolutionDir)..\Core\ToDoList"
+mkdir "$(SolutionDir)..\Core\ToDoList\unicode_$(ConfigurationName)"
+copy $(TargetPath) "$(SolutionDir)..\Core\ToDoList\unicode_$(ConfigurationName)\"
+copy $(TargetDir)$(TargetName).pdb "$(SolutionDir)..\Core\ToDoList\unicode_$(ConfigurationName)\"
+
+copy $(SolutionDir)$(ConfigurationName)\HtmlAgilityPack.dll "$(SolutionDir)..\Core\ToDoList\unicode_$(ConfigurationName)\"
+copy $(SolutionDir)$(ConfigurationName)\Microsoft.VisualStudio.OLE.Interop.dll "$(SolutionDir)..\Core\ToDoList\unicode_$(ConfigurationName)\"
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="ColorUtil.h" />
+    <ClInclude Include="Compression.h" />
+    <ClInclude Include="DateUtil.h" />
+    <ClInclude Include="DPIScaling.h" />
+    <ClInclude Include="DragDropUtil.h" />
+    <ClInclude Include="FormsUtil.h" />
+    <ClInclude Include="HtmlEditorControlEx.h" />
+    <ClInclude Include="LabelTip.h" />
+    <ClInclude Include="OutlookUtil.h" />
+    <ClInclude Include="PluginHelpers.h" />
+    <ClInclude Include="GeometryUtil.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="ContentControl.h" />
+    <ClInclude Include="Preferences.h" />
+    <ClInclude Include="TaskList.h" />
+    <ClInclude Include="Toolbars.h" />
+    <ClInclude Include="Translator.h" />
+    <ClInclude Include="TreeCtrl.h" />
+    <ClInclude Include="UIExtension.h" />
+    <ClInclude Include="UITheme.h" />
+    <ClInclude Include="UrlParser.h" />
+    <ClInclude Include="Win32.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ColorUtil.cpp" />
+    <ClCompile Include="Compression.cpp" />
+    <ClCompile Include="DateUtil.cpp" />
+    <ClCompile Include="DPIScaling.cpp" />
+    <ClCompile Include="DragDropUtil.cpp" />
+    <ClCompile Include="FormsUtil.cpp" />
+    <ClCompile Include="HtmlEditorControlEx.cpp" />
+    <ClCompile Include="LabelTip.cpp" />
+    <ClCompile Include="OutlookUtil.cpp" />
+    <ClCompile Include="PluginHelpers.cpp" />
+    <ClCompile Include="GeometryUtil.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ContentControl.cpp" />
+    <ClCompile Include="Preferences.cpp" />
+    <ClCompile Include="TaskList.cpp" />
+    <ClCompile Include="Toolbars.cpp" />
+    <ClCompile Include="Translator.cpp" />
+    <ClCompile Include="TreeCtrl.cpp" />
+    <ClCompile Include="UIExtension.cpp" />
+    <ClCompile Include="UITheme.cpp" />
+    <ClCompile Include="UrlParser.cpp" />
+    <ClCompile Include="Win32.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\Visual Studio Tools for Office\PIA\Office12\Microsoft.Office.Interop.Outlook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\3rdParty\3rdParty.vcxproj">
+      <Project>{e15c17b8-c080-492f-bbb8-bf9e84a0ea31}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Interfaces\Interfaces.vcxproj">
+      <Project>{a234e4e0-47de-4d77-bdba-ee17c021c95d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Shared\Shared.vcxproj">
+      <Project>{95605899-9c90-40d8-8774-d1da1fce7464}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\CommandHandling\CommandHandling.csproj">
+      <Project>{3733d8e0-4b87-42a6-9b9d-5e16bb15c8d8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\MSHtmlEditorControl\MSHTMLEditorControl.csproj">
+      <Project>{5873de0f-6853-4c8e-91a4-7a6861069a9a}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

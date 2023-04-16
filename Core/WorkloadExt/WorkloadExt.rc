@@ -1,0 +1,477 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "WorkloadExt DLL\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "WorkloadExt\0"
+            VALUE "LegalCopyright", "Copyright (C) 2012\0"
+            VALUE "OriginalFilename", "WorkloadExt.DLL\0"
+            VALUE "ProductName", "WorkloadExt Dynamic Link Library\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_WORKLOAD_DIALOG DIALOGEX 0, 0, 594, 316
+STYLE WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT | WS_EX_APPWINDOW
+FONT 8, "Tahoma", 0, 0, 0x1
+BEGIN
+    LTEXT           "Current Period: ",IDC_PERIODDURATION,0,2,300,8
+    CONTROL         "",IDC_TB_PLACEHOLDER,"Static",SS_BLACKFRAME | NOT 
+                    WS_VISIBLE,164,12,185,13
+    CONTROL         "",IDC_WORKLOAD_FRAME,"Static",SS_BLACKFRAME | NOT 
+                    WS_VISIBLE,0,28,587,281
+    CONTROL         "DateTimePicker1",IDC_PERIODBEGIN,"SysDateTimePick32",
+                    WS_TABSTOP,0,13,73,13
+    CONTROL         "DateTimePicker1",IDC_PERIODENDINCLUSIVE,
+                    "SysDateTimePick32",WS_TABSTOP,86,13,73,13
+    CTEXT           "-",IDC_STATIC,75,16,8,8
+    LTEXT           "Acti&ve Date Range",IDC_ACTIVEDATERANGE_LABEL,354,3,233,
+                    8
+    CONTROL         "",IDC_ACTIVEDATERANGE,"MFCRangeSlider",WS_TABSTOP,353,
+                    12,112,13
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO MOVEABLE PURE 
+BEGIN
+    IDD_WORKLOAD_DIALOG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 587
+        BOTTOMMARGIN, 309
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Australia) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENA)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PREFERENCES_DIALOG DIALOG DISCARDABLE  0, 0, 373, 223
+STYLE WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "Workload Preferences"
+FONT 8, "Tahoma"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,262,202,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,316,202,50,14
+    CONTROL         "",IDC_PPHOST,"Static",SS_GRAYFRAME,7,7,359,185
+END
+
+IDD_PREFERENCES_PAGE DIALOG DISCARDABLE  0, 0, 347, 276
+STYLE WS_CHILD
+FONT 8, "Tahoma"
+BEGIN
+    LTEXT           "&Column Visibility",IDC_STATIC,7,7,333,8
+    LISTBOX         IDC_COLUMNVISIBILITY,7,18,222,44,LBS_SORT | 
+                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
+                    LBS_NOINTEGRALHEIGHT | LBS_MULTICOLUMN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Allocations",IDC_ALLOCATIONGROUP,7,70,333,8
+    CONTROL         "Use 'Time Estimate' in preference to 'Duration' when calculating allocations",
+                    IDC_USETIMESTIMATEFORDURATION,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,85,333,10
+    CONTROL         "Auto-calculate missing allocations",
+                    IDC_AUTOCALCALLOCATIONS,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,100,333,10
+    CONTROL         "Recalculate allocations when the 'Time Estimate' or 'Duration' changes",
+                    IDC_RECALCALLOCATIONS,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,115,333,10
+    CONTROL         "Adjust allocations equally",IDC_RECALCEQUALLY,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,19,130,321,10
+    CONTROL         "Adjust allocations in proportion to their existing values",
+                    IDC_RECALCPROPORTIONALLY,"Button",BS_AUTORADIOBUTTON,19,
+                    143,321,10
+    CONTROL         "Include tasks without dates in calculations for 'Current Period' ",
+                    IDC_INCLUDEDATELESSTASKSINPERIOD,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,159,333,10
+    CONTROL         "&Enable 'Overload' display",IDC_ENABLEOVERLOAD,"Button",
+                    BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,7,175,333,10
+    COMBOBOX        IDC_OVERLOADFROMPERCENT,18,189,31,143,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "% - 100%",IDC_STATIC,51,189,34,12,SS_CENTERIMAGE
+    PUSHBUTTON      "Set...",IDC_SETOVERLOADCOLOR,149,189,52,13,BS_RIGHT
+    CONTROL         "&Enable 'Underload' display",IDC_ENABLEUNDERLOAD,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,210,333,10
+    LTEXT           "0% - ",IDC_STATIC,19,225,19,12,SS_CENTERIMAGE
+    COMBOBOX        IDC_UNDERLOADTOPERCENT,37,225,31,143,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "%",IDC_STATIC,71,225,8,12,SS_CENTERIMAGE
+    PUSHBUTTON      "Set...",IDC_SETUNDERLOADCOLOR,149,225,52,13,BS_RIGHT
+    CONTROL         "'Overlapping' tasks colour",IDC_ENABLEOVERLAPCOLOR,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,247,97,10
+    PUSHBUTTON      "Set...",IDC_SETOVERLAPCOLOR,149,246,52,13,BS_RIGHT
+END
+
+IDD_EDITALLOCATIONS_DIALOG DIALOG DISCARDABLE  0, 0, 270, 163
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Edit Allocations"
+FONT 8, "Tahoma"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,157,142,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,213,142,50,14
+    LTEXT           "Task: ",IDC_STATIC,7,7,47,8
+    LTEXT           "",IDC_TASKTITLE,57,7,206,8
+    CONTROL         "List1",IDC_ALLOCATIONS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_OWNERDRAWFIXED | 
+                    LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,32,256,103
+    LTEXT           "&Allocations:",IDC_STATIC,7,20,256,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO MOVEABLE PURE 
+BEGIN
+    IDD_PREFERENCES_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 366
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 216
+    END
+
+    IDD_PREFERENCES_PAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 340
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 269
+    END
+
+    IDD_EDITALLOCATIONS_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 263
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 156
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_HELP_BUTTON         ICON    DISCARDABLE     "res\\help_button.ico"
+IDR_WORKLOAD            ICON    DISCARDABLE     "res\\workload.ico"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE MOVEABLE PURE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE MOVEABLE PURE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE MOVEABLE PURE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\WorkloadExt.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_TOOLBAR TOOLBAR MOVEABLE PURE  16, 15
+BEGIN
+    BUTTON      ID_MOVEPERIODBACKONEMONTH
+    SEPARATOR
+    BUTTON      ID_MOVEPERIODSTARTBACKONEMONTH
+    BUTTON      ID_MOVEPERIODSTARTFORWARDONEMONTH
+    SEPARATOR
+    BUTTON      ID_THISMONTHPERIOD
+    SEPARATOR
+    BUTTON      ID_MOVEPERIODENDBACKONEMONTH
+    BUTTON      ID_MOVEPERIODENDFORWARDONEMONTH
+    SEPARATOR
+    BUTTON      ID_MOVEPERIODFORWARDONEMONTH
+    SEPARATOR
+    BUTTON      ID_WORKLOAD_EDITALLOCATIONS
+    BUTTON      ID_WORKLOAD_PREFS
+    SEPARATOR
+    BUTTON      ID_HELP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_TOOLBAR             BITMAP  MOVEABLE PURE   "res\\toolbar.bmp"
+IDB_TOOLBAR_STD         BITMAP  MOVEABLE PURE   "RES\\toolbar_std.bmp"
+IDB_CHECKBOXES          BITMAP  MOVEABLE PURE   "res\\XPcheckboxes.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_PREFERENCES_PAGE DLGINIT
+BEGIN
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3539, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3039, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3538, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3038, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3537, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3037, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3536, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3036, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3535, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3035, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3534, "\000" 
+    IDC_OVERLOADFROMPERCENT, 0x403, 3, 0
+0x3034, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3039, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3538, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3038, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3537, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3037, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3536, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3036, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3535, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3035, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3534, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3034, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3533, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3033, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3532, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3032, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3531, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 3, 0
+0x3031, "\000" 
+    IDC_UNDERLOADTOPERCENT, 0x403, 2, 0
+0x0035, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ATTRIB_DURATION     "Duration"
+    IDS_COL_DURATION        "Duration"
+    IDS_TIMESPAN_FORMAT     "%s weekdays"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WORKLOAD_PREFS       "\nWorkload Preferences"
+    ID_WORKLOAD_EDITALLOCATIONS "\nEdit Allocations"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_HELP                 "\nOnline Help"
+    IDS_COL_STARTDATE       "Start"
+    IDS_COL_DUEDATE         "Due"
+    IDS_COL_ALLOCTO         "Alloc To"
+    IDS_COL_PERCENTDONE     "%"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_COL_TASKID          "ID"
+    IDS_ATTRIB_STARTDATE    "Start Date"
+    IDS_ATTRIB_DUEDATE      "Due Date"
+    IDS_ATTRIB_ALLOCTO      "Allocated To"
+    IDS_ATTRIB_PERCENTDONE  "Percent Complete"
+    IDS_ATTRIB_TASKID       "Task ID"
+    IDS_NEW_ALLOCATION      "<New Allocation>"
+    IDS_COL_TOTAL           "Total"
+    IDS_TOTALSDATERANGE     "Current Period: %s"
+    IDS_PERIODDURATION      "Current Period: %d weekdays"
+    IDS_ACTIVEDATERANGE     "Cu&rrent Period (%s)"
+    IDS_ATTRIB_TIMEEST      "Time Estimate"
+    IDS_COL_WEEKDAYS        "Weekdays"
+    IDS_UNALLOCATEDTO       "Unallocated"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_TOTALDAYSPERPERSON  "Total Allocated Days"
+    IDS_NUMACTIVITIESPERPERSON "Number of Allocated Tasks"
+    IDS_PERCENTLOADPERPERSON "Percentage Load"
+    IDS_COL_TIMEEST         "Time Est"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_THISMONTHPERIOD      "\nSet period to 'this' month"
+    ID_MOVEPERIODSTARTBACKONEMONTH "\nMove start of period back one month"
+    ID_MOVEPERIODBACKONEMONTH "\nMove whole period back one month"
+    ID_MOVEPERIODFORWARDONEMONTH "\nMove whole period forward one month"
+    ID_MOVEPERIODENDFORWARDONEMONTH "\nMove end of period forward one month"
+    ID_MOVEPERIODSTARTFORWARDONEMONTH 
+                            "\nMove start of period forward one month"
+    ID_MOVEPERIODENDBACKONEMONTH "\nMove end of period back one month"
+END
+
+#endif    // English (Australia) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\WorkloadExt.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
