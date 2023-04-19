@@ -880,7 +880,7 @@ LRESULT CTabbedToDoCtrl::OnPreTabViewChange(WPARAM nOldTab, LPARAM nNewTab)
 	// notify parent
 	GetParent()->SendMessage(WM_TDCN_VIEWPRECHANGE, nOldTab, nNewTab);
 
-	// make sure something is selected
+	// make sure something is selected in the tree
 	if (GetSelectedTaskCount() == 0)
 	{
 		HTREEITEM hti = m_taskTree.GetSelectedItem();
@@ -888,7 +888,7 @@ LRESULT CTabbedToDoCtrl::OnPreTabViewChange(WPARAM nOldTab, LPARAM nNewTab)
 		if (!hti)
 			hti = m_taskTree.GetChildItem(NULL);
 		
-		if (hti)
+		if (hti && !m_taskTree.IsItemSelected(hti))
 			CToDoCtrl::SelectTask(GetTaskID(hti), FALSE);
 	}
 
