@@ -1448,7 +1448,7 @@ LRESULT CTabbedToDoCtrl::OnUIExtSelectTask(WPARAM wParam, LPARAM lParam)
 	if (bSelChange)
 	{
 		UpdateControls();
-		GetParent()->PostMessage(WM_TDCN_SELECTIONCHANGE);
+		NotifyParentSelectionChange();
 	}
 
 	return pVData->bHasSelectedTask;
@@ -6435,7 +6435,7 @@ void CTabbedToDoCtrl::SyncListSelectionToTree(BOOL bEnsureSelection)
 	if (bSelChange)
 	{
 		UpdateControls(FALSE);
-		GetParent()->PostMessage(WM_TDCN_SELECTIONCHANGE);
+		NotifyParentSelectionChange();
 	}
 }
 
@@ -6500,7 +6500,7 @@ void CTabbedToDoCtrl::SyncExtensionSelectionToTree(FTC_VIEW nView)
 	if (bSelChange)
 	{
 		UpdateControls();
-		GetParent()->PostMessage(WM_TDCN_SELECTIONCHANGE);
+		NotifyParentSelectionChange();
 	}
 }
 
@@ -6588,6 +6588,7 @@ void CTabbedToDoCtrl::OnListSelChanged()
 	else if (Misc::StateChanged(bListHadSelection, pLVData->bHasSelectedTask))
 	{
 		UpdateControls();
+		NotifyParentSelectionChange();
 	}
 }
 
