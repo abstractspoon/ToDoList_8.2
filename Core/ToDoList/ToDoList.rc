@@ -28,7 +28,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 8,1,999,1
+ FILEVERSION 8,1,999,2
  PRODUCTVERSION 1,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -47,7 +47,7 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "AbstractSpoon Software\0"
             VALUE "FileDescription", "ToDoList\0"
-            VALUE "FileVersion", "8, 1, 999, 1\0"
+            VALUE "FileVersion", "8, 1, 999, 2\0"
             VALUE "InternalName", "ToDoList\0"
             VALUE "LegalCopyright", "Copyright (c) AbstractSpoon 2003-23\0"
             VALUE "LegalTrademarks", "\0"
@@ -2113,7 +2113,7 @@ END
 IDD_CUSTOMATTRIBCALC_PAGE DIALOGEX 0, 0, 197, 83
 STYLE WS_CHILD
 EXSTYLE WS_EX_CONTROLPARENT
-FONT 8, "Tahoma"
+FONT 8, "Tahoma", 0, 0, 0x1
 BEGIN
     LTEXT           "1st &attribute",IDC_STATIC,0,2,78,8
     COMBOBOX        IDC_FIRSTOPERAND,79,0,118,30,CBS_DROPDOWNLIST | CBS_SORT | 
