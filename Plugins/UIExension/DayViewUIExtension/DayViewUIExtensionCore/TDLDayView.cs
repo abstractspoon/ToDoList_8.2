@@ -1354,7 +1354,7 @@ namespace DayViewUIExtension
 
 						menu.Items.Add(item);
 					}
-					else if (appt is TimeBlock)
+					/*else if (appt is TimeBlock)
 					{
 						var item = new ToolStripMenuItem(m_Trans.Translate("Delete Time Block"));
 						item.ShortcutKeys = Keys.Delete;
@@ -1375,7 +1375,7 @@ namespace DayViewUIExtension
 						};
 
 						menu.Items.Add(item);
-					}
+					}*/
 					else
 					{
 						Debug.Assert(false);

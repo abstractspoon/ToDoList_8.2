@@ -442,7 +442,7 @@ namespace DayViewUIExtension
 
 			m_Toolbar.Items.Add(new ToolStripSeparator());
 
-			var btn7 = new ToolStripButton();
+			/*var btn7 = new ToolStripButton();
 			btn7.Name = "NewTimeBlock";
 			btn7.ImageIndex = 6;
 			btn7.Click += new EventHandler(OnNewTimeBlock);
@@ -456,7 +456,7 @@ namespace DayViewUIExtension
 			btn8.ToolTipText = m_Trans.Translate("Duplicate Time Block");
 			m_Toolbar.Items.Add(btn8);
 
-			m_Toolbar.Items.Add(new ToolStripSeparator());
+			m_Toolbar.Items.Add(new ToolStripSeparator());*/
 
 			var btn9 = new ToolStripButton();
 			btn9.ImageIndex = 8;
@@ -574,8 +574,8 @@ namespace DayViewUIExtension
 			(m_Toolbar.Items["Show14DayView"] as ToolStripButton).Checked = (m_DayView.DaysShowing == 14);
             (m_Toolbar.Items["Show28DayView"] as ToolStripButton).Checked = (m_DayView.DaysShowing == 28);
 
-			m_Toolbar.Items["NewTimeBlock"].Enabled = m_DayView.CanCreateNewTimeBlock();
-			m_Toolbar.Items["DuplicateTimeBlock"].Enabled = m_DayView.CanDuplicateTimeBlock();
+			//m_Toolbar.Items["NewTimeBlock"].Enabled = m_DayView.CanCreateNewTimeBlock();
+			//m_Toolbar.Items["DuplicateTimeBlock"].Enabled = m_DayView.CanDuplicateTimeBlock();
 		}
 
 		private void OnPreferences(object sender, EventArgs e)
