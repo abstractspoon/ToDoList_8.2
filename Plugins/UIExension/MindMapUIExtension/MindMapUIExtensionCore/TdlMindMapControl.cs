@@ -189,9 +189,9 @@ namespace MindMapUIExtension
 	[Flags]
 	enum MindMapOption
 	{
-		None = 0x00,
+		None				= 0x00,
 		ShowDependencies	= 0x01,
-		StraightConnectors	= 0x02,
+		StraightConnections	= 0x02,
 	}
 
 	// ------------------------------------------------------------
@@ -1166,7 +1166,7 @@ namespace MindMapUIExtension
 
 			using (var pen = new Pen(base.ConnectionColor))
 			{
-				if (m_Options.HasFlag(MindMapOption.StraightConnectors))
+				if (m_Options.HasFlag(MindMapOption.StraightConnections))
 				{
 					Point[] points = new Point[4]
 					{
