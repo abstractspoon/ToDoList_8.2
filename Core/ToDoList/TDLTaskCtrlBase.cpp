@@ -4089,11 +4089,8 @@ LRESULT CTDLTaskCtrlBase::WindowProc(HWND hRealWnd, UINT msg, WPARAM wp, LPARAM 
 					{
 						BOOL bIsFileLink = (nColID == TDCC_FILELINK);
 
-						if (!bIsFileLink)
-						{
-							if (TDCCUSTOMATTRIBUTEDEFINITION::IsCustomColumn(nColID))
-								bIsFileLink = (m_aCustomAttribDefs.GetAttributeDataType(nColID) == TDCCA_FILELINK);
-						}
+						if (!bIsFileLink && TDCCUSTOMATTRIBUTEDEFINITION::IsCustomColumn(nColID))
+							bIsFileLink = (m_aCustomAttribDefs.GetAttributeDataType(nColID) == TDCCA_FILELINK);
 
 						if (bIsFileLink)
 							HandleFileLinkColumnClick(nHit, dwTaskID, pNMIA->ptAction);
