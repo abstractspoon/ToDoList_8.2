@@ -1368,7 +1368,9 @@ void CTDLFindTasksDlg::EnableApplyAsFilterButton()
 
 int CTDLFindTasksDlg::GetSavedSearches(CStringArray& aNames) const
 {
-	if (!m_aSavedSearches.GetSize() && !GetSafeHwnd())
+	aNames.Copy(m_aSavedSearches);
+
+	if (!aNames.GetSize() && !GetSafeHwnd())
 	{
 		CPreferences prefs;
 		int nNumItems = prefs.GetProfileInt(_T("FindTasks\\Searches"), _T("NumSearches"), 0);
@@ -1380,10 +1382,6 @@ int CTDLFindTasksDlg::GetSavedSearches(CStringArray& aNames) const
 
 			aNames.Add(sSearch);
 		}
-	}
-	else
-	{
-		aNames.Copy(m_aSavedSearches);
 	}
 	
 	// always sort by name
