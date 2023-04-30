@@ -50,7 +50,8 @@ TRACKTASKLIST::TRACKTASKLIST()
 	: 
 	pTDC(NULL), 
 	dwTrackedTaskID(0), 
-	bTrackingPaused(FALSE)
+	bTrackingPaused(FALSE),
+	bWantUpdateAllTasks(TRUE)
 {
 }
 	
@@ -61,6 +62,7 @@ TRACKTASKLIST::~TRACKTASKLIST()
 int TRACKTASKLIST::SetTasks(const CTaskFile& tasks)
 {
 	aTasks.RemoveAll();
+	bWantUpdateAllTasks = FALSE;
 
 	UpdateTasks(tasks, CDWordArray());
 
@@ -123,6 +125,9 @@ int TRACKTASKLIST::UpdateTasks(const CTaskFile& tasks, HTASKITEM hTask, int nLev
 
 int TRACKTASKLIST::UpdateTasks(const CTaskFile& tasks, CDWordArray& aModTaskIDs)
 {
+	if (bWantUpdateAllTasks)
+		return 0L;
+
 	CMapTaskIndex mapTasks;
 	aTasks.BuildTaskMap(mapTasks);
 
@@ -133,6 +138,9 @@ int TRACKTASKLIST::UpdateTasks(const CTaskFile& tasks, CDWordArray& aModTaskIDs)
 
 BOOL TRACKTASKLIST::RemoveTasks(DWORD dwToRemove)
 {
+	if (bWantUpdateAllTasks)
+		return 0L;
+
 	int nNumTask = aTasks.GetSize(), nTask = nNumTask;
 
 	while (nTask--)

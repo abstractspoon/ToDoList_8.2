@@ -60,6 +60,7 @@ struct TRACKTASKLIST
 	const CToDoCtrl* pTDC;
 	CTrackItemArray aTasks;
 	CDWordArray aRecentlyTrackedIDs;
+	BOOL bWantUpdateAllTasks;
 
 protected:
 	DWORD dwTrackedTaskID;
