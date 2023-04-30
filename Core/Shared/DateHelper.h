@@ -104,6 +104,7 @@ public:
 
 	const CWorkingWeek& WorkingWeek() const { return m_week; }
 	const CWorkingDay& WorkingDay() const { return m_week.WorkingDay(); }
+	const CWeekend& Weekend() const { return m_week.Weekend(); }
 
 public:
 	// Helpers
