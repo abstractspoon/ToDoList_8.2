@@ -103,6 +103,7 @@ public:
 	BOOL DecodeRelativeDate(LPCTSTR szDate, COleDateTime& date, BOOL bMustHaveSign = TRUE) const;
 
 	const CWorkingWeek& WorkingWeek() const { return m_week; }
+	const CWorkingDay& WorkingDay() const { return m_week.WorkingDay(); }
 
 public:
 	// Helpers

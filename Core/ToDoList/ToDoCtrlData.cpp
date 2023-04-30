@@ -3816,7 +3816,7 @@ COleDateTime CToDoCtrlData::AddDuration(COleDateTime& dateStart, double dDuratio
 			// If date falls on the beginning of a day, move to end of previous day
 			if (dDuration > 0.0)
 			{
-				if (week.WorkDay().IsEndOfDay(dateEnd))
+				if (week.WorkingDay().IsEndOfDay(dateEnd))
 					dateEnd = CDateHelper::GetDateOnly(dateEnd);
 			}
 			else
@@ -3824,7 +3824,7 @@ COleDateTime CToDoCtrlData::AddDuration(COleDateTime& dateStart, double dDuratio
 				// End date comes before start date, so 'dateStart' is logically the end date
 				ASSERT(dateEnd < dateStart);
 
-				if (week.WorkDay().IsEndOfDay(dateStart))
+				if (week.WorkingDay().IsEndOfDay(dateStart))
 					dateEnd = (CDateHelper::GetDateOnly(dateEnd).m_dt + 1.0);
 			}
 		}
