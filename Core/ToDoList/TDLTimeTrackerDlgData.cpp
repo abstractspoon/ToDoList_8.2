@@ -51,7 +51,8 @@ TRACKTASKLIST::TRACKTASKLIST()
 	pTDC(NULL), 
 	dwTrackedTaskID(0), 
 	bTrackingPaused(FALSE),
-	bWantUpdateAllTasks(TRUE)
+	bNeedFullTaskUpdate(FALSE),
+	bNeedComboRebuild(FALSE)
 {
 }
 	
@@ -62,7 +63,10 @@ TRACKTASKLIST::~TRACKTASKLIST()
 int TRACKTASKLIST::SetTasks(const CTaskFile& tasks)
 {
 	aTasks.RemoveAll();
-	bWantUpdateAllTasks = FALSE;
+
+	// Update flags first else UpdateTasks may fail
+	bNeedFullTaskUpdate = FALSE;
+	bNeedComboRebuild = TRUE;
 
 	UpdateTasks(tasks, CDWordArray());
 
@@ -76,7 +80,7 @@ int TRACKTASKLIST::UpdateTasks(const CTaskFile& tasks, HTASKITEM hTask, int nLev
 	if (hTask)
 	{
 		if (tasks.IsTaskDone(hTask) || tasks.IsTaskReference(hTask))
-			return FALSE;
+			return 0;
 
 		DWORD dwTaskID = tasks.GetTaskID(hTask);
 		ASSERT(dwTaskID);
@@ -125,7 +129,7 @@ int TRACKTASKLIST::UpdateTasks(const CTaskFile& tasks, HTASKITEM hTask, int nLev
 
 int TRACKTASKLIST::UpdateTasks(const CTaskFile& tasks, CDWordArray& aModTaskIDs)
 {
-	if (bWantUpdateAllTasks)
+	if (bNeedFullTaskUpdate)
 		return 0L;
 
 	CMapTaskIndex mapTasks;
@@ -133,12 +137,17 @@ int TRACKTASKLIST::UpdateTasks(const CTaskFile& tasks, CDWordArray& aModTaskIDs)
 
 	aModTaskIDs.RemoveAll();
 
-	return UpdateTasks(tasks, NULL, 0, mapTasks, aModTaskIDs);
+	int nUpdated = UpdateTasks(tasks, NULL, 0, mapTasks, aModTaskIDs);
+
+	if (nUpdated)
+		bNeedComboRebuild = TRUE;
+
+	return nUpdated;
 }
 
 BOOL TRACKTASKLIST::RemoveTasks(DWORD dwToRemove)
 {
-	if (bWantUpdateAllTasks)
+	if (bNeedFullTaskUpdate)
 		return 0L;
 
 	int nNumTask = aTasks.GetSize(), nTask = nNumTask;
@@ -165,7 +174,10 @@ BOOL TRACKTASKLIST::RemoveTasks(DWORD dwToRemove)
 			aTasks.RemoveAt(nTask);
 	}
 
-	return (aTasks.GetSize() != nNumTask);
+	bNeedFullTaskUpdate = FALSE;
+	bNeedComboRebuild = (aTasks.GetSize() != nNumTask);
+
+	return TRUE;
 }
 
 BOOL TRACKTASKLIST::IsTracking(DWORD dwTaskID) const

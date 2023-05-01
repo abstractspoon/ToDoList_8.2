@@ -110,7 +110,7 @@ void CTDLTimeTrackerDlg::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimize
 	{
 		ASSERT(IsWindowVisible());
 
-		const TRACKTASKLIST* pTTL = m_aTasklists.GetTasklist(GetSelectedTasklist());
+		TRACKTASKLIST* pTTL = m_aTasklists.GetTasklist(GetSelectedTasklist());
 
 		if (!pTTL)
 		{
@@ -118,8 +118,11 @@ void CTDLTimeTrackerDlg::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimize
 			return;
 		}
 
-		if (pTTL->bWantUpdateAllTasks)
-			DoUpdateAllTasks(pTTL->pTDC);
+		if (pTTL->bNeedFullTaskUpdate)
+			DoUpdateAllTasks(pTTL);
+
+		if (pTTL->bNeedComboRebuild)
+			DoRebuildTaskCombo(pTTL);
 	}
 }
 
@@ -348,8 +351,6 @@ BOOL CTDLTimeTrackerDlg::AddTasklist(const CToDoCtrl* pTDC, const CTaskFile& tas
 	if ((m_cbTasklists.GetCurSel() == CB_ERR) && !pTDC->IsDelayLoaded())
 	{
 		m_cbTasklists.SetCurSel(nTDC);
-		m_cbTasks.Rebuild(m_aTasklists.GetTasklist(pTDC));
-		
 		UpdatePlayButton();
 	}
 	
@@ -369,8 +370,8 @@ BOOL CTDLTimeTrackerDlg::SetTasks(const CToDoCtrl* pTDC, const CTaskFile& tasks)
 	}
 	pTTL->SetTasks(tasks);
 
-	if (IsSelectedTasklist(pTDC))
-		m_cbTasks.Rebuild(pTTL);
+	if (IsSelectedTasklist(pTDC) && pTTL->bNeedComboRebuild)
+		DoRebuildTaskCombo(pTTL);
 	
 	UpdateTasklistName(pTDC);
 	UpdateTaskTime(pTDC);
@@ -414,10 +415,10 @@ void CTDLTimeTrackerDlg::UpdateAllTasks(const CToDoCtrl* pTDC)
 	if (!pTTL)
 		ASSERT(0);
 	else
-		pTTL->bWantUpdateAllTasks = TRUE;
+		pTTL->bNeedFullTaskUpdate = pTTL->bNeedComboRebuild = TRUE;
 }
 
-BOOL CTDLTimeTrackerDlg::DoUpdateAllTasks(const CToDoCtrl* pTDC)
+void CTDLTimeTrackerDlg::DoUpdateAllTasks(const TRACKTASKLIST* pTTL)
 {
 	TDCGETTASKS filter(TDCGT_NOTDONE);
 
@@ -425,12 +426,21 @@ BOOL CTDLTimeTrackerDlg::DoUpdateAllTasks(const CToDoCtrl* pTDC)
 	filter.mapAttribs.Add(TDCA_ICON);
 
 	CTaskFile tasks;
-	pTDC->GetTasks(tasks, filter);
+	pTTL->pTDC->GetTasks(tasks, filter);
 
-	return SetTasks(pTDC, tasks);
+	SetTasks(pTTL->pTDC, tasks);
+	ASSERT(pTTL->bNeedFullTaskUpdate == FALSE);
 }
 
-BOOL CTDLTimeTrackerDlg::UpdateSelectedTasks(const CToDoCtrl* pTDC, const CTDCAttributeMap& mapAttrib)
+void CTDLTimeTrackerDlg::DoRebuildTaskCombo(TRACKTASKLIST* pTTL)
+{
+	CWaitCursor cursor;
+
+	m_cbTasks.Rebuild(pTTL);
+	pTTL->bNeedComboRebuild = FALSE;
+}
+
+void CTDLTimeTrackerDlg::UpdateSelectedTasks(const CToDoCtrl* pTDC, const CTDCAttributeMap& mapAttrib)
 {
 	// Operations which introduce new tasks or undelete existing tasks
 	// require a complete refresh
@@ -441,21 +451,15 @@ BOOL CTDLTimeTrackerDlg::UpdateSelectedTasks(const CToDoCtrl* pTDC, const CTDCAt
 		(mapAttrib.Has(TDCA_NEWTASK) && !pTDC->IsTaskLabelEditing()))
 	{
 		UpdateAllTasks(pTDC);
-		return FALSE;
+		return;
 	}
 
 	// else
 	TRACKTASKLIST* pTTL = m_aTasklists.GetTasklist(pTDC);
+	ASSERT(pTTL);
 
-	if (!pTTL)
-	{
-		ASSERT(0);
-		return FALSE;
-	}
-	else if (pTTL->bWantUpdateAllTasks)
-	{
-		return FALSE;
-	}
+	if (!pTTL || pTTL->bNeedFullTaskUpdate)
+		return;
 
 	BOOL bUpdateSel = FALSE;
 	CDWordArray aModTaskIDs;
@@ -485,7 +489,7 @@ BOOL CTDLTimeTrackerDlg::UpdateSelectedTasks(const CToDoCtrl* pTDC, const CTDCAt
 	{
 		if (bUpdateAll)
 		{
-			m_cbTasks.Rebuild(pTTL);
+			pTTL->bNeedComboRebuild = TRUE;
 		}
 		else if (bUpdateSel)
 		{
@@ -495,8 +499,6 @@ BOOL CTDLTimeTrackerDlg::UpdateSelectedTasks(const CToDoCtrl* pTDC, const CTDCAt
 		UpdatePlayButton();
 		UpdateTaskTime(pTDC);
 	}
-
-	return TRUE;
 }
 
 BOOL CTDLTimeTrackerDlg::RemoveTasks(const CToDoCtrl* pTDC, DWORD dwToRemove)
@@ -607,19 +609,17 @@ void CTDLTimeTrackerDlg::RemoveAllTasklists()
 	UpdatePlayButton();
 }
 
-BOOL CTDLTimeTrackerDlg::UpdateTracking(const CToDoCtrl* pTDC)
+void CTDLTimeTrackerDlg::UpdateTracking(const CToDoCtrl* pTDC)
 {
 	ASSERT(m_pWndNotify && GetSafeHwnd());
 	ASSERT(pTDC);
 
 	// Update data struct first
 	TRACKTASKLIST* pTTL = m_aTasklists.GetTasklist(pTDC);
+	ASSERT(0);
 
 	if (!pTTL)
-	{
-		ASSERT(0);
-		return FALSE;
-	}
+		return;
 
 	BOOL bWasTracking = pTTL->IsTracking();
 	DWORD dwWasTrackingTaskID = (bWasTracking ? pTTL->GetTrackedTaskID() : 0);
@@ -652,8 +652,6 @@ BOOL CTDLTimeTrackerDlg::UpdateTracking(const CToDoCtrl* pTDC)
 
 	m_cbTasks.UpdateRecentlyTrackedTasks(pTTL);
 	RefreshCaptionText();
-	
-	return TRUE;
 }
 
 BOOL CTDLTimeTrackerDlg::IsTrackingSelectedTasklistAndTask() const
@@ -874,7 +872,7 @@ void CTDLTimeTrackerDlg::OnSelchangeTasklist()
 	}
 
 	// Select the tasklist
-	const TRACKTASKLIST* pTTL = m_aTasklists.GetTasklist(pTDC);
+	TRACKTASKLIST* pTTL = m_aTasklists.GetTasklist(pTDC);
 
 	if (!pTTL)
 	{
@@ -883,13 +881,15 @@ void CTDLTimeTrackerDlg::OnSelchangeTasklist()
 	}
 	
 	// Build task combo and select the tracked task if any
-	if (pTTL->bWantUpdateAllTasks)
-		DoUpdateAllTasks(pTDC);
+	if (pTTL->bNeedFullTaskUpdate)
+		DoUpdateAllTasks(pTTL);
 
-	if (bTasklistChange)
-		m_cbTasks.Rebuild(pTTL);
+	if (bTasklistChange || pTTL->bNeedComboRebuild)
+		DoRebuildTaskCombo(pTTL);
 	else
 		m_cbTasks.SelectTask(pTTL);
+
+	ASSERT(pTTL->bNeedComboRebuild == FALSE);
 	
 	UpdatePlayButton();
 	UpdateTaskTime(pTDC);
@@ -1021,8 +1021,13 @@ void CTDLTimeTrackerDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 
 		TRACKTASKLIST* pTTL = m_aTasklists.GetTasklist(GetSelectedTasklist());
 
-		if (pTTL && pTTL->bWantUpdateAllTasks)
+		if (pTTL)
 		{
+			if (pTTL->bNeedFullTaskUpdate)
+				DoUpdateAllTasks(pTTL);
+
+			if (pTTL->bNeedComboRebuild)
+				DoRebuildTaskCombo(pTTL);
 		}
 
 		UpdatePlayButton(FALSE);

@@ -50,8 +50,8 @@ public:
 	BOOL RemoveTasklist(const CToDoCtrl* pTDC);
 	void RemoveAllTasklists();
 	void UpdateAllTasks(const CToDoCtrl* pTDC);
-	BOOL UpdateSelectedTasks(const CToDoCtrl* pTDC, const CTDCAttributeMap& mapAttrib);
-	BOOL UpdateTracking(const CToDoCtrl* pTDC);
+	void UpdateSelectedTasks(const CToDoCtrl* pTDC, const CTDCAttributeMap& mapAttrib);
+	void UpdateTracking(const CToDoCtrl* pTDC);
 	void UpdateTaskTime(const CToDoCtrl* pTDC);
 	void UpdateTasklistName(const CToDoCtrl* pTDC);
 	BOOL IsSelectedTasklist(const CToDoCtrl* pTDC) const;
@@ -132,7 +132,8 @@ protected:
 	int GetTasklistCBIndex(const CToDoCtrl* pTDC) const;
 	BOOL HasTasklist(const CToDoCtrl* pTDC) const;
 	BOOL RemoveTasks(const CToDoCtrl* pTDC, DWORD dwToRemove);
-	BOOL DoUpdateAllTasks(const CToDoCtrl* pTDC);
+	void DoUpdateAllTasks(const TRACKTASKLIST* pTTL);
+	void DoRebuildTaskCombo(TRACKTASKLIST* pTTL);
 
 	BOOL Create();
 	BOOL Recreate();
