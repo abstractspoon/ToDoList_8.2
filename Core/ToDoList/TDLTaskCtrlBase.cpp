@@ -3193,13 +3193,13 @@ void CTDLTaskCtrlBase::DrawFileLinkIcon(CDC* pDC, const CString& sFileLink, cons
 		CString sFullPath = FileMisc::GetFullPath(Misc::GetUnquoted(sFileLink, 0), m_sTasklistFolder);
 
 		// Render the associated image if possible
-		if (!m_imageIcons.HasIcon(sFullPath))
+		if (!m_imageIcons.HasIcon(sFileLink))
 		{
 			if (CEnBitmap::IsSupportedImageFile(sFullPath) && FileMisc::PathExists(sFullPath))
-				VERIFY(m_imageIcons.Add(sFullPath, sFileLink));
+				m_imageIcons.Add(sFileLink, sFullPath);
 		}
 
-		if (!m_imageIcons.Draw(pDC, sFullPath, ptTopLeft))
+		if (!m_imageIcons.Draw(pDC, sFileLink, ptTopLeft))
 			CFileIcons::Draw(pDC, sFullPath, ptTopLeft);
 	}
 }
@@ -4087,15 +4087,20 @@ LRESULT CTDLTaskCtrlBase::WindowProc(HWND hRealWnd, UINT msg, WPARAM wp, LPARAM 
 
 					if (ItemColumnSupportsClickHandling(nHit, nColID))
 					{
-						BOOL bIsFileLink = (nColID == TDCC_FILELINK);
-
-						if (!bIsFileLink && TDCCUSTOMATTRIBUTEDEFINITION::IsCustomColumn(nColID))
-							bIsFileLink = (m_aCustomAttribDefs.GetAttributeDataType(nColID) == TDCCA_FILELINK);
-
-						if (bIsFileLink)
+						if (nColID == TDCC_FILELINK)
+						{
 							HandleFileLinkColumnClick(nHit, dwTaskID, pNMIA->ptAction);
+						}
+						else if (TDCCUSTOMATTRIBUTEDEFINITION::IsCustomColumn(nColID) &&
+								 (m_aCustomAttribDefs.GetAttributeDataType(nColID) == TDCCA_FILELINK))
+						{
+							CString sAttribID = m_aCustomAttribDefs.GetAttributeTypeID(nColID);
+							ShowFileLink(m_data.GetTaskCustomAttributeData(dwTaskID, sAttribID));
+						}
 						else
+						{
 							NotifyParentOfColumnEditClick(nColID, dwTaskID);
+						}
 					}
 				}
 				break;

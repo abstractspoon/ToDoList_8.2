@@ -62,7 +62,7 @@ void CTDLIconComboBox::DrawItemText(CDC& dc, const CRect& rect, int nItem, UINT 
 			DrawCheckBox(dc, rect, nItem, nItemState, dwItemData, FALSE);
 
 			// update image rect
-			rImage.left += IMAGE_WIDTH;
+			rImage.left += CHECKBOX_SIZE + 2;
 		}
 
 		aImages.Add(sItem);
