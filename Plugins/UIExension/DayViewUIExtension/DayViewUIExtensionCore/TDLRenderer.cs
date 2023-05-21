@@ -646,7 +646,7 @@ namespace DayViewUIExtension
 						gripRect.Height -= (imageSize + TextPadding);
 					}
 
-					if ((rect.Width < imageSize) || (rect.Height < imageSize))
+					if (((rect.Right - rectIcon.Left) < imageSize) || (rect.Height < imageSize))
 					{
 						var clipRgn = g.Clip;
 						g.Clip = new Region(RectangleF.Intersect(rect, g.ClipBounds));
