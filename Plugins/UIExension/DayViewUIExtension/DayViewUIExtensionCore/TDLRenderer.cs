@@ -646,14 +646,19 @@ namespace DayViewUIExtension
 						gripRect.Height -= (imageSize + TextPadding);
 					}
 
-					var clipRgn = g.Clip;
-
-					if (rect.Bottom < (rectIcon.Y + imageSize))
+					if ((rect.Width < imageSize) || (rect.Height < imageSize))
+					{
+						var clipRgn = g.Clip;
 						g.Clip = new Region(RectangleF.Intersect(rect, g.ClipBounds));
 
-					m_TaskIcons.Draw(g, rectIcon.X, rectIcon.Y);
+						m_TaskIcons.Draw(g, rectIcon.X, rectIcon.Y);
 
-					g.Clip = clipRgn;
+						g.Clip = clipRgn;
+					}
+					else
+					{
+						m_TaskIcons.Draw(g, rectIcon.X, rectIcon.Y);
+					}
 
 					hasIcon = true;
 					tdlView.IconRect = rectIcon;
