@@ -3434,7 +3434,9 @@ BOOL CToDoCtrl::CanSetSelectedTasksDone(const CTDCTaskCompletionArray& aTasks, B
 		}
 	}
 
-	bAndSubtasks = CheckWantTaskSubtasksCompleted(aToDoIDs);
+	bAndSubtasks = (!m_data.WantUpdateInheritedAttibute(TDCA_DONEDATE) &&
+					CheckWantTaskSubtasksCompleted(aToDoIDs));
+
 	return TRUE;
 }
 
