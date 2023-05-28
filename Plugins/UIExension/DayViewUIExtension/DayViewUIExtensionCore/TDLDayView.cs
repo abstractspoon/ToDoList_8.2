@@ -1515,6 +1515,14 @@ namespace DayViewUIExtension
 			Cursor = GetCursor(e);
 		}
 
+		protected override void OnScroll(ScrollEventArgs se)
+		{
+			base.OnScroll(se);
+
+			if (se.ScrollOrientation == ScrollOrientation.HorizontalScroll)
+				DoHorizontalScroll(se.NewValue > se.OldValue);
+		}
+
 		private Cursor GetCursor(MouseEventArgs e)
         {
 			if (IsResizingAppointment())
