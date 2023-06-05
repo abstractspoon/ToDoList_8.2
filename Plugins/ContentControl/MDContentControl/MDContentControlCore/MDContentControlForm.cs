@@ -201,12 +201,31 @@ namespace MDContentControl
 		{
 			get
 			{
-				return SplitContainer.ClientSize.Height - SplitContainer.SplitterDistance;
+				if (SplitContainer.Orientation == Orientation.Horizontal)
+					return (Height - SplitContainer.SplitterDistance);
+
+				// else
+				return (Width - SplitContainer.SplitterDistance);
 			}
 
 			set
 			{
-				SplitContainer.SplitterDistance = SplitContainer.ClientSize.Height - value;
+				var splitDist = 0;
+
+				if (SplitContainer.Orientation == Orientation.Horizontal)
+				{
+					splitDist = (Height - value);
+					splitDist = Math.Max(SplitContainer.Panel1MinSize, splitDist);
+					splitDist = Math.Min(splitDist, (SplitContainer.Height - SplitContainer.Panel2MinSize));
+				}
+				else
+				{
+					splitDist = (Width - value);
+					splitDist = Math.Max(SplitContainer.Panel1MinSize, splitDist);
+					splitDist = Math.Min(splitDist, (SplitContainer.Width - SplitContainer.Panel2MinSize));
+				}
+
+				SplitContainer.SplitterDistance = splitDist;
 			}
 		}
 
