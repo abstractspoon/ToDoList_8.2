@@ -207,26 +207,35 @@ namespace MDContentControl
 				// else
 				return (Width - SplitContainer.SplitterDistance);
 			}
+		}
 
-			set
+		public bool SetSplitPos(int pos)
+		{
+			var splitDist = 0;
+
+			if (SplitContainer.Orientation == Orientation.Horizontal)
 			{
-				var splitDist = 0;
+				splitDist = (Height - pos);
 
-				if (SplitContainer.Orientation == Orientation.Horizontal)
-				{
-					splitDist = (Height - value);
-					splitDist = Math.Max(SplitContainer.Panel1MinSize, splitDist);
-					splitDist = Math.Min(splitDist, (SplitContainer.Height - SplitContainer.Panel2MinSize));
-				}
-				else
-				{
-					splitDist = (Width - value);
-					splitDist = Math.Max(SplitContainer.Panel1MinSize, splitDist);
-					splitDist = Math.Min(splitDist, (SplitContainer.Width - SplitContainer.Panel2MinSize));
-				}
+				if (splitDist < SplitContainer.Panel1MinSize)
+					return false;
 
-				SplitContainer.SplitterDistance = splitDist;
+				if (splitDist > (SplitContainer.Height - SplitContainer.Panel2MinSize))
+					return false;
 			}
+			else
+			{
+				splitDist = (Width - pos);
+
+				if (splitDist < SplitContainer.Panel1MinSize)
+					return false;
+
+				if (splitDist > (SplitContainer.Width - SplitContainer.Panel2MinSize))
+					return false;
+			}
+
+			SplitContainer.SplitterDistance = splitDist;
+			return true;
 		}
 
 		private readonly string m_BaseStyle = 
@@ -348,9 +357,13 @@ namespace MDContentControl
 
 			// Adjust the splitter orientation to match the aspect ratio of the available space
 			if (ClientRectangle.Width > ClientRectangle.Height)
+			{
 				SplitContainer.Orientation = Orientation.Vertical;
-			else
+			}
+			else if (ClientRectangle.Height > ClientRectangle.Width)
+			{
 				SplitContainer.Orientation = Orientation.Horizontal;
+			}
 		}
 
 	}
