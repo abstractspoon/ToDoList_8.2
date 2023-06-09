@@ -11,12 +11,40 @@ using Abstractspoon.Tdl.PluginHelpers.ColorUtil;
 
 namespace WordCloudUIExtension
 {
+	[System.ComponentModel.DesignerCategory("")]
+	internal class NoTrackHeaderControl : NativeWindow
+	{
+		public NoTrackHeaderControl(ListView lv)
+		{
+			const uint LVM_GETHEADER = (0x1000 + 31);
+
+			//Get the header control handle
+			IntPtr header = new IntPtr(Win32.SendMessage(lv.Handle, LVM_GETHEADER, UIntPtr.Zero, IntPtr.Zero));
+			this.AssignHandle(header);
+		}
+
+		protected override void WndProc(ref Message m)
+		{
+			const int WM_SETCURSOR = 0x0020;
+
+			switch (m.Msg)
+			{
+			case WM_SETCURSOR:
+				Win32.SetArrowCursor();
+				return;
+			}
+
+			base.WndProc(ref m);
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	public delegate Boolean EditTaskLabelEventHandler(object sender, UInt32 taskId);
 	public delegate Boolean EditTaskIconEventHandler(object sender, UInt32 taskId);
 	public delegate Boolean EditTaskCompletionEventHandler(object sender, UInt32 taskId, bool completed);
 
 	[System.ComponentModel.DesignerCategory("")]
-
 	class TaskMatchesListView : ListView, ILabelTipHandler
 	{
 		public event EditTaskLabelEventHandler EditTaskLabel;
@@ -35,6 +63,7 @@ namespace WordCloudUIExtension
 		private Size m_CheckBoxSize = Size.Empty;
 		private LabelTip m_LabelTip;
 		private uint m_MaxTaskId = DefaultMaxTaskId;
+		private NoTrackHeaderControl m_Header;
 
 		private Boolean m_TaskMatchesHaveIcons;
 		private Boolean m_ShowParentAsFolder;
@@ -51,8 +80,15 @@ namespace WordCloudUIExtension
 			m_LabelTip = new LabelTip(this);
 		}
 
-        // ILabelTipHandler implementation
-        public Font GetFont()
+		protected override void OnHandleCreated(EventArgs e)
+		{
+			base.OnHandleCreated(e);
+
+			m_Header = new NoTrackHeaderControl(this);
+		}
+
+		// ILabelTipHandler implementation
+		public Font GetFont()
         {
             return Font;
         }
@@ -189,6 +225,7 @@ namespace WordCloudUIExtension
             return true;
         }
 
+		// The other part of NoTrackHeaderControl
 		protected override void OnColumnWidthChanging(ColumnWidthChangingEventArgs e)
 		{
 			// Prevent column resizing to save us having to save/restore the widths
@@ -207,8 +244,9 @@ namespace WordCloudUIExtension
 		{
 			using (var graphics = CreateGraphics())
 			{
-				int headerWidth = (int)(graphics.MeasureString(Columns[1].Text, Font).Width * 2);
-				int maxItemWidth = (int)(graphics.MeasureString(m_MaxTaskId.ToString(), Font).Width + (2 * DPIScaling.Scale(2)));
+				int headerPadding = (int)(graphics.MeasureString("o", Font).Width); // Fudge
+				int headerWidth   = (int)(graphics.MeasureString(Columns[1].Text, Font).Width + (headerPadding * 2));
+				int maxItemWidth  = (int)(graphics.MeasureString(m_MaxTaskId.ToString(), Font).Width + (2 * DPIScaling.Scale(2)));
 
 				Columns[1].Width = Math.Max(headerWidth, maxItemWidth);
 				Columns[0].Width = (ClientRectangle.Width - Columns[1].Width - 2);
