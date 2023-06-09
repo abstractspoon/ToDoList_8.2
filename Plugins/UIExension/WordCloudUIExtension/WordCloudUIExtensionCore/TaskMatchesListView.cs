@@ -25,11 +25,16 @@ namespace WordCloudUIExtension
 
 		// -------------------------------------------------------------
 
+		const int DefaultMaxTaskId = 100;
+
+		// -------------------------------------------------------------
+
 		private UIExtension.TaskIcon m_TaskIcons;
 
 		private ImageList m_ilItemHeight;
 		private Size m_CheckBoxSize = Size.Empty;
 		private LabelTip m_LabelTip;
+		private uint m_MaxTaskId = DefaultMaxTaskId;
 
 		private Boolean m_TaskMatchesHaveIcons;
 		private Boolean m_ShowParentAsFolder;
@@ -186,8 +191,35 @@ namespace WordCloudUIExtension
 
 		protected override void OnColumnWidthChanging(ColumnWidthChangingEventArgs e)
 		{
+			// Prevent column resizing to save us having to save/restore the widths
 			e.Cancel = true;
 			e.NewWidth = Columns[e.ColumnIndex].Width;
+		}
+
+		public new void EndUpdate()
+		{
+			base.EndUpdate();
+
+			RefreshIDColumnWidth();
+		}
+
+		private void RefreshIDColumnWidth()
+		{
+			using (var graphics = CreateGraphics())
+			{
+				int headerWidth = (int)(graphics.MeasureString(Columns[1].Text, Font).Width * 2);
+				int maxItemWidth = (int)(graphics.MeasureString(m_MaxTaskId.ToString(), Font).Width + (2 * DPIScaling.Scale(2)));
+
+				Columns[1].Width = Math.Max(headerWidth, maxItemWidth);
+				Columns[0].Width = (ClientRectangle.Width - Columns[1].Width - 2);
+			}
+		}
+
+		protected override void OnFontChanged(EventArgs e)
+		{
+			base.OnFontChanged(e);
+
+			RefreshIDColumnWidth();
 		}
 
 		public bool AddMatch(CloudTaskItem item)
@@ -205,6 +237,8 @@ namespace WordCloudUIExtension
 				m_TaskMatchesHaveIcons = true;
 			}
 
+			m_MaxTaskId = Math.Max(m_MaxTaskId, item.Id);
+
 			if (this.Items.Add(lvItem) == null)
 				return false;
 
@@ -217,6 +251,7 @@ namespace WordCloudUIExtension
 			SelectedItems.Clear();
 
 			m_TaskMatchesHaveIcons = false;
+			m_MaxTaskId = DefaultMaxTaskId;
 		}
 
 		public bool HasMatchId(UInt32 matchId)
@@ -662,6 +697,8 @@ namespace WordCloudUIExtension
 
 			for (int colIndex = 0; colIndex < e.Item.SubItems.Count; colIndex++)
 			{
+				var horzAlign = StringAlignment.Near;
+
 				itemRect.X += 2;
 				itemRect.Width = (Columns[colIndex].Width - 2);
 
@@ -695,6 +732,10 @@ namespace WordCloudUIExtension
                         itemRect.Width -= TextIconOffset;
                     }
 				}
+				else
+				{
+					horzAlign = StringAlignment.Far;
+				}
 
 				itemRect.Y++;
 				itemRect.Height--;
@@ -703,7 +744,7 @@ namespace WordCloudUIExtension
 						e.Item.SubItems[colIndex].Text, 
 						itemRect, 
 						textBrush, 
-						StringAlignment.Near,
+						horzAlign,
 						(colIndex == 0));
 
 				// next subitem
@@ -711,7 +752,20 @@ namespace WordCloudUIExtension
 			}
 		}
 
-        private Rectangle CheckboxRect(Rectangle labelRect)
+		protected void DrawText(Graphics graphics, String text, Rectangle rect, Brush brush, StringAlignment horzAlign, bool endEllipsis)
+		{
+			StringFormat format = new StringFormat()
+			{
+				Alignment = horzAlign,
+				LineAlignment = StringAlignment.Center,
+				FormatFlags = StringFormatFlags.NoWrap,
+				Trimming = (endEllipsis ? StringTrimming.EllipsisCharacter : StringTrimming.None)
+			};
+
+			graphics.DrawString(text, this.Font, brush, rect, format);
+		}
+
+		private Rectangle CheckboxRect(Rectangle labelRect)
         {
             if (!m_ShowCompletionCheckboxes)
                 return Rectangle.Empty;
@@ -748,30 +802,17 @@ namespace WordCloudUIExtension
 			Sort();
 		}
 
-		protected void DrawText(Graphics graphics, String text, Rectangle rect, Brush brush, StringAlignment horzAlign, bool endEllipsis)
-		{
-			StringFormat format = new StringFormat();
-
-			format.Alignment = horzAlign;
-			format.LineAlignment = StringAlignment.Center;
-			format.FormatFlags = StringFormatFlags.NoWrap;
-
-			if (endEllipsis)
-				format.Trimming = StringTrimming.EllipsisCharacter;
-
-			graphics.DrawString(text, this.Font, brush, rect, format);
-		}
-
 		protected override void OnSizeChanged(EventArgs e)
 		{
 			base.OnSizeChanged(e);
 
 			if (ClientRectangle.Width <= MinTaskMatchesWidth)
 				return;
-			
+
 			// Resize first column to fill remaining width
+			base.BeginUpdate();
 			Columns[0].Width = (ClientRectangle.Width - Columns[1].Width - 2);
-			Update();
+			base.EndUpdate();
 		}
 
         CheckBoxState GetItemCheckboxState(CloudTaskItem taskItem)
