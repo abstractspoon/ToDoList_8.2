@@ -124,8 +124,10 @@ protected:
 	static CWnd* CreateAttributeCtrl(CWnd* pParent, const TDCCUSTOMATTRIBUTEDEFINITION& attribDef,
 									 const TDCCADATA& data,
 									 const CTDCImageList& ilImages,
-									 UINT nCtrlID, BOOL bBuddy, BOOL bMultiSelectionFilter,
-									 CString& sAltPrompt);
+									 UINT nCtrlID, 
+									 BOOL bBuddy, 
+									 BOOL bMultiSelectionFilter,
+									 CString& sPrompt);
 
 	static CWnd* CreateAttributeLabelCtrl(CWnd* pParent, const TDCCUSTOMATTRIBUTEDEFINITION& attribDef,
 										  const TDCCADATA& data, UINT nCtrlID, BOOL bBuddy);
@@ -140,8 +142,10 @@ protected:
 								const CTDCCustomAttribDefinitionArray& aAttribDefs,
 								const CTDCCustomAttributeDataMap& mapCtrlData,
 								const CTDCImageList& ilImages,
-								UINT nCtrlIDPos, UINT nCtrlIDStart,
-								BOOL bFilter, BOOL bMultiSelectionFilter,
+								UINT nCtrlIDPos, 
+								UINT nCtrlIDStart,
+								BOOL bFilter, 
+								BOOL bMultiSelectionFilter,
 								CTDCCustomControlArray& aControls);
 
 	static BOOL NeedRebuildControls(const CTDCCustomAttribDefinitionArray& aOldAttribDefs,
