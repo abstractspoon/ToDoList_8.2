@@ -4940,6 +4940,8 @@ BEGIN
                             "Are you sure you want to delete all the tasks in this tasklist?"
     IDS_TDC_CONFIRMDELETE_TITLE "Confirm Delete"
     IDS_TDC_CONFIRMADD_TITLE "Confirm Addition"
+    IDS_FIND_CONFIRMDELETESEARCH 
+                            "Are you sure you want to delete the '%s' search?"
     IDS_TDC_CONFIRMOVERWRITE 
                             "The tasklist '%s' has been modified \nsince you opened it or last saved your changes.\n\nIf you continue you will overwrite those changes.\n\nAre you sure you want to proceed?"
     IDS_TDC_CONFIRMOVERWRITE_TITLE "Confirm Overwrite"
