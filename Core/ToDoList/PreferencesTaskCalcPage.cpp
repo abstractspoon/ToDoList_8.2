@@ -159,9 +159,9 @@ void CPreferencesTaskCalcPage::LoadPreferences(const IPreferences* pPrefs, LPCTS
 	m_nCalcRemainingTime = (PTCP_CALCTIMEREMAINING)pPrefs->GetProfileInt(szKey, _T("CalcRemainingTime"), PTCP_REMAININGTTIMEISDUEDATE);
 	m_nCalcDueDate = (PTCP_CALCDUEDATE)pPrefs->GetProfileInt(szKey, _T("CalcDueDate"), PTCP_NOCALCDUEDATE);
 	m_nCalcStartDate = (PTCP_CALCSTARTDATE)pPrefs->GetProfileInt(szKey, _T("CalcStartDate"), PTCP_NOCALCSTARTDATE);
-	m_bSetCompletionStatus = pPrefs->GetProfileInt(szKey, _T("SetCompletionStatus"), FALSE);
-	m_bSyncCompletionToStatus = pPrefs->GetProfileInt(szKey, _T("SyncCompletionToStatus"), TRUE);
 	m_sCompletionStatus = pPrefs->GetProfileString(szKey, _T("CompletionStatus"), CEnString(IDS_TDC_COLUMN_DONEDATE));
+	m_bSetCompletionStatus = (pPrefs->GetProfileInt(szKey, _T("SetCompletionStatus"), FALSE) && !m_sCompletionStatus.IsEmpty());
+	m_bSyncCompletionToStatus = (pPrefs->GetProfileInt(szKey, _T("SyncCompletionToStatus"), TRUE) && m_bSetCompletionStatus);
 	m_bSubtasksInheritLockStatus = pPrefs->GetProfileInt(szKey, _T("SubtasksInheritLockStatus"), FALSE);
 	m_bTaskInheritsSubtaskFlags = pPrefs->GetProfileInt(szKey, _T("TaskInheritsSubtaskFlags"), FALSE);
 	m_bUseLatestLastModifiedDate = pPrefs->GetProfileInt(szKey, _T("UseLatestLastModifiedDate"), FALSE);
