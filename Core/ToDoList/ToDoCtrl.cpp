@@ -10873,7 +10873,7 @@ LRESULT CToDoCtrl::OnFindReplaceSelectNextTask(WPARAM wParam, LPARAM /*lParam*/)
 
 LRESULT CToDoCtrl::OnFindReplaceSelectedTask(WPARAM /*wParam*/, LPARAM /*lParam*/)
 {
-	return FindReplaceSelectedTaskAttribute();
+	return FindReplaceSelectedTaskAttribute(FALSE);
 }
 
 LRESULT CToDoCtrl::OnFindReplaceAllTasks(WPARAM /*wParam*/, LPARAM /*lParam*/)
@@ -10893,8 +10893,7 @@ LRESULT CToDoCtrl::OnFindReplaceAllTasks(WPARAM /*wParam*/, LPARAM /*lParam*/)
 		{
 			ASSERT(GetSelectedTaskCount() == 1);
 
-			if (!FindReplaceSelectedTaskAttribute())
-				break;
+			FindReplaceSelectedTaskAttribute(TRUE);
 		} 
 		while (SelectNextTask(m_findReplace.GetSearchFor(), 
 							TDC_SELECTNEXT, 
@@ -10947,16 +10946,22 @@ LRESULT CToDoCtrl::OnFindReplaceMsg(WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-BOOL CToDoCtrl::FindReplaceSelectedTaskAttribute()
+BOOL CToDoCtrl::FindReplaceSelectedTaskAttribute(BOOL bReplacingAllTasks)
 {
 	TDC_ATTRIBUTE nAttrib = m_findReplace.GetAttribute();
 
-	if (!m_findReplace.IsReplacing() ||	!CanEditSelectedTask(nAttrib))
+	// Sanity checks
+	if (!m_findReplace.IsReplacing())
 	{
 		ASSERT(0);
 		return FALSE;
 	}
-
+	else if (!CanEditSelectedTask(nAttrib))
+	{
+		ASSERT(bReplacingAllTasks);
+		return FALSE;
+	}
+	
 	CString sSelAttrib;
 
 	switch (nAttrib)
