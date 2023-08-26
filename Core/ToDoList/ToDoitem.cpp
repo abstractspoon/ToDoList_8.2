@@ -848,7 +848,7 @@ BOOL TODOITEM::operator==(const TODOITEM& tdi)
 			(dateCreated == tdi.dateCreated) &&
 			(dateLastMod == tdi.dateLastMod) &&
 			(sLastModifiedBy == tdi.sLastModifiedBy) &&
-			(sTitle = tdi.sTitle) &&
+			(sTitle == tdi.sTitle) &&
 			(sComments == tdi.sComments) &&
 			(customComments == tdi.customComments) &&
 			(cfComments == tdi.cfComments) &&
