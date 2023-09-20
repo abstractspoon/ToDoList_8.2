@@ -20,6 +20,10 @@ namespace MDContentControl
 
 		// -----------------------------------------------------------------
 
+		bool m_UpdateCausedByTextChange;
+
+		// -----------------------------------------------------------------
+
 		public MDContentControlForm()
 		{
 			InitializeComponent();
@@ -145,10 +149,12 @@ namespace MDContentControl
 		// we are eating OnPaintBackground
 		static bool m_Initialised = false;
 
-		private void UpdateOutput()
+		private void UpdateOutput(bool textChange)
 		{
 			if (!m_Initialised)
 				return;
+
+			m_UpdateCausedByTextChange = textChange;
 
 			if (PreviewBrowser.Document != null)
 			{
@@ -160,26 +166,27 @@ namespace MDContentControl
 
 		private void HtmlPreview_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
 		{
-			bool hadFocus = InputTextCtrl.Focused;
-
 			if (!m_Initialised)
 			{
 				Debug.Assert(e.Url.ToString() == "about:blank");
 
 				m_Initialised = true;
-				UpdateOutput();
+				UpdateOutput(false);
 			}
 
 			if (PreviewBrowser.Document != null)
 				PreviewBrowser.Document.BackColor = (InputTextCtrl.ReadOnly ? SystemColors.ButtonFace : SystemColors.Window);
 
-			if (hadFocus)
+			if (m_UpdateCausedByTextChange)
+			{
 				InputTextCtrl.Focus();
+				m_UpdateCausedByTextChange = false;
+			}
 		}
 
 		private void textBox1_TextChanged(object sender, EventArgs e)
 		{
-			UpdateOutput();
+			UpdateOutput(true);
 		}
 
 		protected override void OnPaintBackground(PaintEventArgs e)
@@ -259,7 +266,7 @@ namespace MDContentControl
 			if (!newStyle.Equals(m_Style))
 			{
 				m_Style = newStyle;
-				UpdateOutput();
+				UpdateOutput(false);
 			}
 		}
 
