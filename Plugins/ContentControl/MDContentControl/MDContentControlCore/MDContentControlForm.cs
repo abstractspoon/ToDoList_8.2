@@ -20,7 +20,7 @@ namespace MDContentControl
 
 		// -----------------------------------------------------------------
 
-		bool m_UpdateCausedByTextChange;
+		bool m_RestoreInputFocusAfterUpdate;
 
 		// -----------------------------------------------------------------
 
@@ -89,7 +89,7 @@ namespace MDContentControl
 		{
 			get
 			{
-				return PreviewBrowser.Document.Body.InnerText ?? String.Empty;
+				return PreviewBrowser.Document.Body?.InnerText ?? String.Empty;
 			}
 		}
 
@@ -149,12 +149,12 @@ namespace MDContentControl
 		// we are eating OnPaintBackground
 		static bool m_Initialised = false;
 
-		private void UpdateOutput(bool textChange)
+		private void UpdateOutput(bool restoreInputFocus)
 		{
 			if (!m_Initialised)
 				return;
 
-			m_UpdateCausedByTextChange = textChange;
+			m_RestoreInputFocusAfterUpdate = restoreInputFocus;
 
 			if (PreviewBrowser.Document != null)
 			{
@@ -171,16 +171,16 @@ namespace MDContentControl
 				Debug.Assert(e.Url.ToString() == "about:blank");
 
 				m_Initialised = true;
-				UpdateOutput(false);
+				UpdateOutput(InputTextCtrl.Focused);
 			}
 
 			if (PreviewBrowser.Document != null)
 				PreviewBrowser.Document.BackColor = (InputTextCtrl.ReadOnly ? SystemColors.ButtonFace : SystemColors.Window);
 
-			if (m_UpdateCausedByTextChange)
+			if (m_RestoreInputFocusAfterUpdate)
 			{
 				InputTextCtrl.Focus();
-				m_UpdateCausedByTextChange = false;
+				m_RestoreInputFocusAfterUpdate = false;
 			}
 		}
 
@@ -266,7 +266,7 @@ namespace MDContentControl
 			if (!newStyle.Equals(m_Style))
 			{
 				m_Style = newStyle;
-				UpdateOutput(false);
+				UpdateOutput(InputTextCtrl.Focused);
 			}
 		}
 
