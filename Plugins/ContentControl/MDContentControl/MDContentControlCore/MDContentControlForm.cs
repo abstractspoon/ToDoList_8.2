@@ -6,10 +6,15 @@ using System.Data;
 using System.Linq;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.IO;
 
 using Abstractspoon.Tdl.PluginHelpers;
 using Command.Handling;
+
 using Markdig;
+using Markdig.Syntax;
+using Markdig.Syntax.Inlines;
+using Markdig.Renderers;
 
 namespace MDContentControl
 {
@@ -64,9 +69,31 @@ namespace MDContentControl
 			if (content.Length == 0)
 				return string.Empty;
 
-			var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+			MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+			MarkdownDocument document = Markdown.Parse(content, pipeline);
 
-			return Markdig.Markdown.ToHtml(content, pipeline);
+			foreach (LinkInline link in document.Descendants().OfType<LinkInline>())
+			{
+				System.Uri uri = null;
+
+				if (System.Uri.TryCreate(link.Url, UriKind.RelativeOrAbsolute, out uri) && !uri.IsAbsoluteUri)
+				{
+					// Assume it's a local path
+					var path = Path.Combine(Directory.GetCurrentDirectory(), link.Url);
+					link.Url = new Uri(path).AbsoluteUri;
+				}
+			}
+
+			var writer = new StringWriter();
+			var renderer = new HtmlRenderer(writer);
+
+			pipeline.Setup(renderer);
+			renderer.Render(document);
+
+			return writer.ToString();
+
+			//var pipeline = new MarkdownPipelineBuilder().Build();
+			//return Markdig.Markdown.ToHtml(content, pipeline);
 		}
 
 		public string OutputHtml
