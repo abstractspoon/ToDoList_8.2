@@ -91,9 +91,6 @@ namespace MDContentControl
 			renderer.Render(document);
 
 			return writer.ToString();
-
-			//var pipeline = new MarkdownPipelineBuilder().Build();
-			//return Markdig.Markdown.ToHtml(content, pipeline);
 		}
 
 		public string OutputHtml
