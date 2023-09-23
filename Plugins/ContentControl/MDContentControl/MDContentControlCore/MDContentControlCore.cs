@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 using Abstractspoon.Tdl.PluginHelpers;
@@ -18,8 +19,23 @@ namespace MDContentControl
         {
             m_hwndParent = hwndParent;
 
-            InputTextChanged += new System.EventHandler(OnInputTextChanged);
-            InputLostFocus += new System.EventHandler(OnInputTextLostFocus);
+            InputTextChanged += (s, e) =>
+			{
+				ContentControlWnd.ParentNotify notify = new ContentControlWnd.ParentNotify(m_hwndParent);
+				notify.NotifyChange();
+			};
+
+			InputLostFocus += (s, e) =>
+			{
+				ContentControlWnd.ParentNotify notify = new ContentControlWnd.ParentNotify(m_hwndParent);
+				notify.NotifyKillFocus();
+			};
+
+			LinkClicked += (s, e) =>
+			{
+				if (ModifierKeys.HasFlag(Keys.Control))
+					ContentControlWnd.GoToLink(e.LinkText, m_hwndParent, Handle);
+			};
 		}
 
 		// ITDLContentControl ------------------------------------------------------------------
@@ -106,8 +122,6 @@ namespace MDContentControl
 			SetInputFont(fontName, pointSize);
 		}
 
-		// --------------------------------------------------------------------
-
 		protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
@@ -118,19 +132,6 @@ namespace MDContentControl
             Win32.RemoveClientEdge(Handle);
 		}
 
-        private void OnInputTextChanged(object sender, EventArgs e)
-        {
-			ContentControlWnd.ParentNotify notify = new ContentControlWnd.ParentNotify(m_hwndParent);
-
-            notify.NotifyChange();
-        }
-
-        private void OnInputTextLostFocus(object sender, EventArgs e)
-        {
-			ContentControlWnd.ParentNotify notify = new ContentControlWnd.ParentNotify(m_hwndParent);
-
-            notify.NotifyKillFocus();
-        }
 
     }
 }
