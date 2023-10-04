@@ -10,7 +10,6 @@
 #include "tdcmsg.h"
 #include "TDCSearchParamHelper.h"
 #include "taskclipboard.h"
-#include "ToDoCtrlDataDefines.h"
 
 #include "..\shared\holdredraw.h"
 #include "..\shared\datehelper.h"

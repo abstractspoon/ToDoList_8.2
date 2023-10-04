@@ -872,7 +872,6 @@ void CTDLFindTaskExpressionListCtrl::PrepareControl(CWnd& ctrl, int nRow, int nC
 
 			ASSERT(pDef->IsList());
 
-
 			CDialogHelper::SetComboBoxItems(m_cbCustomIcons, pDef->aDefaultListData);
 
 			CStringArray aIcons;
