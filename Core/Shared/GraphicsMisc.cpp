@@ -1112,11 +1112,10 @@ int GraphicsMisc::DrawAnsiSymbol(CDC* pDC, char cSymbol, const CRect& rText, UIN
 
 	CFont* pOldFont = pFont ? pDC->SelectObject(pFont) : NULL;
 	pDC->SetBkMode(TRANSPARENT);
-	int nResult = 0;
 
 	// draw as ANSI string
 	char szAnsi[2] = { cSymbol, 0 };
-	nResult = ::DrawTextA(*pDC, szAnsi, 1, (LPRECT)(LPCRECT)rText, nFlags);
+	int nResult = ::DrawTextA(*pDC, szAnsi, 1, (LPRECT)(LPCRECT)rText, nFlags);
 	
 	if (pFont)
 		pDC->SelectObject(pOldFont);
