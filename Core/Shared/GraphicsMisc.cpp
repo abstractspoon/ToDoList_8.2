@@ -350,12 +350,7 @@ HFONT GraphicsMisc::CreateFont(LPCTSTR szFaceName, int nPoint, DWORD dwFlags)
 	}
 	
 	if (!Misc::IsEmpty(szFaceName))
-	{
 		lstrcpy(lf.lfFaceName, szFaceName);
-		
-		// reset character-set 
-		lf.lfCharSet = DEFAULT_CHARSET;
-	}
 	
 	if (nPoint > 0)
 	{
