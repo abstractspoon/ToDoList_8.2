@@ -1417,10 +1417,8 @@ struct SEARCHPARAM
 			
 		case FT_INTEGER:
 		case FT_BOOL:
-			nValue = _ttoi(val);
-			break;
-
 		case FT_RECURRENCE:
+			nValue = _ttoi(val);
 			break;
 
 		default:
@@ -1497,6 +1495,7 @@ struct SEARCHPARAM
 			return Misc::Format(nValue);
 
 		case FT_BOOL:
+		case FT_RECURRENCE:
 			return Misc::Format(nValue);
 		}
 
@@ -1518,6 +1517,7 @@ struct SEARCHPARAM
 
 		case FT_INTEGER:
 		case FT_BOOL:
+		case FT_RECURRENCE:
 			return (double)nValue;
 		}
 
