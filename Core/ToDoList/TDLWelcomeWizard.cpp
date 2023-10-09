@@ -128,7 +128,7 @@ CTDLWelcomePage1::CTDLWelcomePage1()
 	m_psp.dwFlags &= ~(PSP_HASHELP);
 	
 	m_strHeaderTitle = CEnString(IDS_WIZ_INTRO_HEADER);
-	m_strHeaderSubTitle = CEnString(IDS_WIZ_INTRO_SUBHEADER);
+	m_strHeaderSubTitle = "\n" + CEnString(IDS_WIZ_INTRO_SUBHEADER);
 }
 
 CTDLWelcomePage1::~CTDLWelcomePage1()
@@ -184,7 +184,7 @@ CTDLWelcomePage2::CTDLWelcomePage2()
 	m_psp.dwFlags &= ~(PSP_HASHELP);		
 	
 	m_strHeaderTitle = CEnString(IDS_WIZ_INTRO_HEADER);
-	m_strHeaderSubTitle = CEnString(IDS_WIZ_INTRO_SUBHEADER);
+	m_strHeaderSubTitle = "\n" + CEnString(IDS_WIZ_INTRO_SUBHEADER);
 }
 
 CTDLWelcomePage2::~CTDLWelcomePage2()
@@ -258,7 +258,7 @@ CTDLWelcomePage3::CTDLWelcomePage3()
 	m_sSampleTaskList = _T(".\\Resources\\Examples\\Introduction.tdl");
 	
 	m_strHeaderTitle = CEnString(IDS_WIZ_INTRO_HEADER);
-	m_strHeaderSubTitle = CEnString(IDS_WIZ_INTRO_SUBHEADER);
+	m_strHeaderSubTitle = "\n" + CEnString(IDS_WIZ_INTRO_SUBHEADER);
 }
 
 CTDLWelcomePage3::~CTDLWelcomePage3()
