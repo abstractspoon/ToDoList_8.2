@@ -119,7 +119,7 @@ BOOL CFileBackup::InitialisePaths(const CString& sFile, DWORD dwFlags, const CSt
 		return FALSE;
 	}
 
-	if (!FileMisc::FileExists(sFile))
+	if (!FileMisc::FileExists(sFile)) 
 		return FALSE;
 
 	if (!Misc::HasFlag(dwFlags, FBS_ALLOWEMPTY))
@@ -130,7 +130,7 @@ BOOL CFileBackup::InitialisePaths(const CString& sFile, DWORD dwFlags, const CSt
 
 	CString sBackup = BuildBackupPath(sFile, dwFlags, sFolder, sExt);
 
-	if (!FileMisc::CreateFolderFromFilePath(m_sBackup))
+	if (!FileMisc::CreateFolderFromFilePath(sBackup))
 		return FALSE;
 
 	m_sFile = sFile;
